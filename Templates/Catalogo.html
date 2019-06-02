@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<section>
+    <div class="container mt-5">
+        {% if object_list %}
+
+        <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <thead class="bg-secondary text-uppercase mb-4 text-center textcolor-white">
+
+                <tr>
+
+                    <td>Producto</td>
+                    {% if user.is_staff %}
+                      <td>Cantidad</td>
+                    {% endif %}
+                    <td>Precio</td>
+                    <td>Comprar</td>
+                </tr>
+
+            </thead>
+
+            <tbody class="lead mb-0">
+                {% for producto in object_list%}
+                <tr>
+                    <td>{{producto.Nombre}}</td>
+                    {% if user.is_staff %}
+                      <td>{{producto.Cantidad}}</td>
+                    {% endif %}
+                    <td>${{producto.PrecioVenta}}</td>
+                    <td>
+                        <form method="get" action="{% url 'ventas:producto' producto.id %}">
+                          <button class="btn btn-primary" type="submit">Comprar</button>
+                        </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay Productos Registrados</p>
+        {% endif %}
+</div>
+
+        <div class="pagination align-content-center">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+</section>
+
+{% endblock content %}

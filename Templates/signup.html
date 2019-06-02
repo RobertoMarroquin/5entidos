@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block tittle %}Registro{% endblock tittle %}
+
+{% block content %}
+
+{% if error %}
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{error}}</strong>
+    </div>
+{% endif %}
+<section>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-6">
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <div class="form-group ">
+        <h3 class="text-center">Registro</h3>
+        <label for="nombres">Nombres</label>
+        <input id="nombres" name="nombres" class="form-control" type="text" required="True">
+
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" name="apellidos" class="form-control" type="text" required="True">
+
+        <label for="username">E-mail</label>
+        <input id="username" name="username" placeholder="alguien@ejemplo.com" class="form-control" required="True" type="email">
+
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" required="True" class="form-control" type="password">
+
+        <label for="passwordcon">Confirma tu Contraseña</label>
+        <input id="passwordcon" name="passwordcon" required="True" class="form-control" type="password">
+
+        <br>
+        <div class="form-group text-center">
+                <button type="Submit" class="btn btn-outline-succes center btn-success" name="button">Registrarme</button>
+          </div>
+
+    </div>
+</form>
+</div>
+</div>
+</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="col-sm-12">
+        <br>
+    </div>
+</div>
+    <div class="media">
+        <div class="media-body">
+            <h4>{{object.Nombre}}   Precio: ${{object.PrecioVenta}}</h4>
+            <p><h6>{{object.Descripcion}}</h6></p>
+        </div>
+        <a class="d-flex" href="#">
+            <img  src="{{object.Foto.url}}" alt="img">
+        </a>
+    </div>
+
+    <div class="row justify-content-md-center align-items-start">
+        <div class="col-sm-3">
+        </div>
+
+        <div class="col-sm-6">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" value=0
+                name="cantidad" id="cantidad" aria-describedby="helpId" placeholder="0">
+                <small id="helpId" class="form-text text-muted">Ingresa la cantidad a comprar</small>
+                <div class="form-group">
+                  <label for="precio">Precio</label>
+                  <input type="number"
+                    class="form-control" readonly name="precio" id="precio" aria-describedby="helpId" placeholder="0.00">
+                  <small id="helpId" class="form-text text-muted">Precio de venta</small>
+                  <input name="punidad" id="punidad"  type="hidden" value="{{object.PrecioVenta}}">
+                </div>
+                </div>
+                <button type="submit" class="btn btn-outline-success">Comprar</button>
+
+
+            </form>
+        </div>
+        <div class="col-sm-3">    
+        </div>
+    </div>
+</div>    
+
+<script>
+var punidad = document.getElementById("punidad").value;
+
+var cantidad = document.getElementById("cantidad").value;
+
+document.getElementsByName("cantidad")[0].addEventListener('change', nuevoTotal);
+
+function nuevoTotal(){
+    cantidad = document.getElementById("cantidad").value;
+    console.log(punidad);
+    console.log(cantidad); 
+    document.getElementById("precio").value = cantidad * punidad
+}
+</script>
+{% endblock content %}
+
